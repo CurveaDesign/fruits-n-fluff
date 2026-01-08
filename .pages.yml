@@ -136,7 +136,7 @@ content:
         options:
           collection: cakeSections
           search: title
-          value: "{path}"
+          value: "{primary}"
           label: "{title}"
 
       - name: badges
@@ -147,7 +147,7 @@ content:
           collection: cakeBadges
           multiple: true
           search: title
-          value: "{path}"
+          value: "{primary}"
           label: "{title}"
 
       - name: flavors
