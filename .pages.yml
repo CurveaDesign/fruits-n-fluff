@@ -76,9 +76,9 @@ content:
     label: Cake Sections
     type: collection
     path: content/cakeSections
-    filename: "{slug}.md"
+    filename: "{primary}.md"
     fields:
-      - name: title
+      - primary: title
         label: Title
         type: string
         required: true
@@ -95,9 +95,9 @@ content:
     label: Cake Badges
     type: collection
     path: content/cakeBadges
-    filename: "{slug}.md"
+    filename: "{primary}.md"
     fields:
-      - name: title
+      - primary: title
         label: Title
         type: string
         required: true
@@ -110,9 +110,9 @@ content:
     label: Cakes
     type: collection
     path: content/cakes
-    filename: "{slug}.md"
+    filename: "{primary}.md"
     fields:
-      - name: name
+      - primary: name
         label: Cake Name
         type: string
         required: true
@@ -128,8 +128,8 @@ content:
         required: true
         options:
           collection: cakeSections
-          value: "{slug}"
-          label: "{title}"
+          value: "{path}"
+          label: "{fields.title}"
 
       - name: badges
         label: Badges (pills)
@@ -138,8 +138,8 @@ content:
         required: false
         options:
           collection: cakeBadges
-          value: "{slug}"
-          label: "{title}"
+          value: "{path}"
+          label: "{fields.title}"
 
       - name: flavors
         label: Flavors (chips like strawberry, lemon)
@@ -168,9 +168,9 @@ content:
     label: Catering Items
     type: collection
     path: content/catering
-    filename: "{slug}.md"
+    filename: "{primary}.md"
     fields:
-      - name: name
+      - primary: name
         label: Item Name
         type: string
         required: true
@@ -204,9 +204,9 @@ content:
     label: Plat du Jour
     type: collection
     path: content/plat-du-jour
-    filename: "{slug}.md"
+    filename: "{primary}.md"
     fields:
-      - name: name
+      - primary: name
         label: Dish Name
         type: string
         required: true
