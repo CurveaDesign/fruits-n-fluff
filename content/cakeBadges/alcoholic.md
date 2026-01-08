@@ -1,0 +1,4 @@
+---
+title: Alcoholic
+short: Alcoholic
+---

@@ -1,0 +1,4 @@
+---
+title: Vegan
+short: Vegan
+---

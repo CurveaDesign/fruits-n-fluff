@@ -1,0 +1,254 @@
+# PagesCMS config (single file required)
+
+media:
+  - name: uploads
+    label: Uploads
+    input: public/uploads
+    output: /uploads
+
+components:
+  pricing:
+    label: Pricing
+    type: object
+    fields:
+      - name: type
+        label: Pricing Type
+        type: select
+        required: true
+        options:
+          values:
+            - label: Single price
+              value: single
+            - label: By size
+              value: by_size
+
+      - name: currency
+        label: Currency
+        type: select
+        required: true
+        options:
+          values:
+            - label: USD
+              value: USD
+            - label: LBP
+              value: LBP
+
+      - name: price
+        label: Price (single)
+        type: number
+        required: false
+
+      - name: sizes
+        label: Sizes (by size)
+        type: object
+        multiple: true
+        required: false
+        fields:
+          - name: label
+            label: Size label (e.g. 6", Small, 10 persons)
+            type: string
+            required: true
+          - name: price
+            label: Price
+            type: number
+            required: true
+
+  seasonalWindow:
+    label: Seasonal Window
+    type: object
+    fields:
+      - name: start
+        label: Start (MM-DD)
+        type: string
+        required: false
+        description: Example: 05-01
+      - name: end
+        label: End (MM-DD)
+        type: string
+        required: false
+        description: Example: 08-31
+
+content:
+  # =========================
+  # CAKES (taxonomy + items)
+  # =========================
+  - name: cakeSections
+    label: Cake Sections
+    type: collection
+    path: content/cakeSections
+    filename: "{slug}.md"
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: order
+        label: Order
+        type: number
+        required: true
+      - name: description
+        label: Description
+        type: text
+        required: false
+
+  - name: cakeBadges
+    label: Cake Badges
+    type: collection
+    path: content/cakeBadges
+    filename: "{slug}.md"
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: short
+        label: Short label (optional)
+        type: string
+        required: false
+
+  - name: cakes
+    label: Cakes
+    type: collection
+    path: content/cakes
+    filename: "{slug}.md"
+    fields:
+      - name: name
+        label: Cake Name
+        type: string
+        required: true
+
+      - name: image
+        label: Image
+        type: image
+        required: true
+
+      - name: section
+        label: Menu Section
+        type: reference
+        required: true
+        options:
+          collection: cakeSections
+          value: "{slug}"
+          label: "{title}"
+
+      - name: badges
+        label: Badges (pills)
+        type: reference
+        multiple: true
+        required: false
+        options:
+          collection: cakeBadges
+          value: "{slug}"
+          label: "{title}"
+
+      - name: flavors
+        label: Flavors (chips like strawberry, lemon)
+        type: string
+        multiple: true
+        required: false
+
+      - name: description
+        label: Short Description
+        type: text
+        required: false
+
+      - name: pricing
+        component: pricing
+        required: true
+
+      - name: seasonal
+        component: seasonalWindow
+        required: false
+        description: Only fill this if the cake should gray-out when out of season.
+
+  # =========================
+  # CATERING (minimal for now)
+  # =========================
+  - name: cateringItems
+    label: Catering Items
+    type: collection
+    path: content/catering
+    filename: "{slug}.md"
+    fields:
+      - name: name
+        label: Item Name
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+        required: false
+      - name: image
+        label: Image (optional)
+        type: image
+        required: false
+      - name: price
+        label: Price (optional)
+        type: number
+        required: false
+      - name: currency
+        label: Currency
+        type: select
+        required: false
+        options:
+          values:
+            - label: USD
+              value: USD
+            - label: LBP
+              value: LBP
+
+  # =========================
+  # PLAT DU JOUR (minimal)
+  # =========================
+  - name: platDuJour
+    label: Plat du Jour
+    type: collection
+    path: content/plat-du-jour
+    filename: "{slug}.md"
+    fields:
+      - name: name
+        label: Dish Name
+        type: string
+        required: true
+      - name: day
+        label: Day (optional)
+        type: select
+        required: false
+        options:
+          values:
+            - label: Monday
+              value: monday
+            - label: Tuesday
+              value: tuesday
+            - label: Wednesday
+              value: wednesday
+            - label: Thursday
+              value: thursday
+            - label: Friday
+              value: friday
+            - label: Saturday
+              value: saturday
+            - label: Sunday
+              value: sunday
+      - name: description
+        label: Description
+        type: text
+        required: false
+      - name: image
+        label: Image (optional)
+        type: image
+        required: false
+      - name: price
+        label: Price (optional)
+        type: number
+        required: false
+      - name: currency
+        label: Currency
+        type: select
+        required: false
+        options:
+          values:
+            - label: USD
+              value: USD
+            - label: LBP
+              value: LBP
