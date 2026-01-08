@@ -1,5 +1,3 @@
-# PagesCMS config (single file required)
-
 media:
   - name: uploads
     label: Uploads
@@ -41,7 +39,7 @@ components:
       - name: sizes
         label: Sizes (by size)
         type: object
-        multiple: true
+        list: true
         required: false
         fields:
           - name: label
@@ -61,12 +59,12 @@ components:
         label: Start (MM-DD)
         type: string
         required: false
-        description: Example: 05-01
+        description: "Example: 05-01"
       - name: end
         label: End (MM-DD)
         type: string
         required: false
-        description: Example: 08-31
+        description: "Example: 08-31"
 
 content:
   # =========================
@@ -77,8 +75,11 @@ content:
     type: collection
     path: content/cakeSections
     filename: "{primary}.md"
+    primary: title
+    view:
+      primary: title
     fields:
-      - primary: title
+      - name: title
         label: Title
         type: string
         required: true
@@ -96,8 +97,11 @@ content:
     type: collection
     path: content/cakeBadges
     filename: "{primary}.md"
+    primary: title
+    view:
+      primary: title
     fields:
-      - primary: title
+      - name: title
         label: Title
         type: string
         required: true
@@ -111,8 +115,11 @@ content:
     type: collection
     path: content/cakes
     filename: "{primary}.md"
+    primary: name
+    view:
+      primary: name
     fields:
-      - primary: name
+      - name: name
         label: Cake Name
         type: string
         required: true
@@ -128,23 +135,25 @@ content:
         required: true
         options:
           collection: cakeSections
+          search: title
           value: "{path}"
-          label: "{fields.title}"
+          label: "{title}"
 
       - name: badges
         label: Badges (pills)
         type: reference
-        multiple: true
         required: false
         options:
           collection: cakeBadges
+          multiple: true
+          search: title
           value: "{path}"
-          label: "{fields.title}"
+          label: "{title}"
 
       - name: flavors
         label: Flavors (chips like strawberry, lemon)
         type: string
-        multiple: true
+        list: true
         required: false
 
       - name: description
@@ -169,8 +178,11 @@ content:
     type: collection
     path: content/catering
     filename: "{primary}.md"
+    primary: name
+    view:
+      primary: name
     fields:
-      - primary: name
+      - name: name
         label: Item Name
         type: string
         required: true
@@ -205,8 +217,11 @@ content:
     type: collection
     path: content/plat-du-jour
     filename: "{primary}.md"
+    primary: name
+    view:
+      primary: name
     fields:
-      - primary: name
+      - name: name
         label: Dish Name
         type: string
         required: true
