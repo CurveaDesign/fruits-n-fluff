@@ -1,5 +1,4 @@
 ---
 title: Vegan
-order: 5
-description: ""
+order: 4
 ---
