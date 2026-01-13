@@ -75,7 +75,6 @@ content:
     type: collection
     path: content/cakeSections
     filename: "{primary}.md"
-    primary: title
     view:
       primary: title
     fields:
@@ -97,7 +96,6 @@ content:
     type: collection
     path: content/cakeBadges
     filename: "{primary}.md"
-    primary: title
     view:
       primary: title
     fields:
@@ -115,7 +113,6 @@ content:
     type: collection
     path: content/cakes
     filename: "{primary}.md"
-    primary: name
     view:
       primary: name
     fields:
@@ -136,7 +133,7 @@ content:
         options:
           collection: cakeSections
           search: title
-          value: "{path}"
+          value: "{name}"
           label: "{title}"
 
       - name: badges
@@ -147,7 +144,7 @@ content:
           collection: cakeBadges
           multiple: true
           search: title
-          value: "{path}"
+          value: "{name}"
           label: "{title}"
 
       - name: flavors
@@ -178,7 +175,6 @@ content:
     type: collection
     path: content/catering
     filename: "{primary}.md"
-    primary: name
     view:
       primary: name
     fields:
@@ -217,7 +213,6 @@ content:
     type: collection
     path: content/plat-du-jour
     filename: "{primary}.md"
-    primary: name
     view:
       primary: name
     fields:
