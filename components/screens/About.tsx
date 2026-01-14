@@ -40,8 +40,8 @@ export default function About() {
 
           <div className="overflow-hidden rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] aspect-[4/3]">
             <img
-              src="/about/real-ingredients.jpg"
-              alt="Organic fruits and cocoa beans"
+              src="/about/real-ingredients.png"
+              alt="Fresh natural baking ingredients including freshly squeezed orange juice, strawberries, organic cocoa beans, and dark chocolate for handmade cakes"
               className="w-full h-full object-cover"
               loading="lazy"
             />
