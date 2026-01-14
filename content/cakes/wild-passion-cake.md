@@ -1,6 +1,6 @@
 ---
 name: Wild Passion Cake
-image: /uploads/passionFruitCake.jpg
+image: /uploads/passionFruitCake.png
 section: organic.md
 badges:
   - organic.md

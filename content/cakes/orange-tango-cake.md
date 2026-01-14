@@ -1,6 +1,6 @@
 ---
 name: Orange Tango Cake
-image: /uploads/orangeCake.jpg
+image: /uploads/orangeCake.png
 section: vegan.md
 badges:
   - organic.md

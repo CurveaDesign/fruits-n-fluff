@@ -1,6 +1,6 @@
 ---
 name: Mango Overload Cake
-image: /uploads/mangoCake.jpg
+image: /uploads/mangoCake.png
 section: organic.md
 badges:
   - organic.md

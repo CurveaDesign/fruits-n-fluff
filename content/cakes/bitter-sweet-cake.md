@@ -1,6 +1,6 @@
 ---
 name: Bitter Sweet Cake
-image: /uploads/bitterSweetCake.jpg
+image: /uploads/bitterSweetCake.png
 section: organic.md
 badges:
   - organic.md

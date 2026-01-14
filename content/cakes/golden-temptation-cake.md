@@ -1,6 +1,6 @@
 ---
 name: Golden Temptation Cake
-image: /uploads/pineappleCake.jpg
+image: /uploads/pineappleCake.png
 section: organic.md
 badges:
   - organic.md

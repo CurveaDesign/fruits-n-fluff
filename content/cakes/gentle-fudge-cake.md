@@ -1,6 +1,6 @@
 ---
 name: Gentle Fudge Cake
-image: /uploads/glutenfreeChocolateCake.jpg
+image: /uploads/glutenfreeChocolateCake.png
 section: gluten-free-lactose-free.md
 badges:
   - organic.md

@@ -1,6 +1,6 @@
 ---
 name: Lemon Zest Cake
-image: /uploads/lemonCake.jpg
+image: /uploads/lemonCake.png
 section: organic.md
 badges:
   - organic.md

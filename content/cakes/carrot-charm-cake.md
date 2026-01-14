@@ -1,6 +1,6 @@
 ---
 name: Carrot Charm Cake
-image: /uploads/carrotCake.jpg
+image: /uploads/carrotCake.png
 section: organic.md
 badges:
   - organic.md

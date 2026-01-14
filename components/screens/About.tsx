@@ -51,7 +51,7 @@ export default function About() {
         <section className="bg-[#f7f6f3] py-20 px-6">
           <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
             <div className="overflow-hidden rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] order-2 md:order-1 aspect-[4/3]">
-              <img src="/about/glutenfree.jpeg" alt="Gluten free cake" className="w-full h-full object-cover" loading="lazy" />
+              <img src="/about/gluten-free-cake.png" alt="Gluten free cake" className="w-full h-full object-cover" loading="lazy" />
             </div>
 
             <div className="order-1 md:order-2">
@@ -77,7 +77,7 @@ export default function About() {
 
           <div className="mt-10 flex justify-center">
             <img
-              src="/about/catering.jpg"
+              src="/about/catering.png"
               alt="Elegant catering dishes"
               className="rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] max-w-2xl w-full object-cover"
               loading="lazy"

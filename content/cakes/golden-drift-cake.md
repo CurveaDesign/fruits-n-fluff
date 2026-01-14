@@ -1,6 +1,6 @@
 ---
 name: Golden Drift Cake
-image: /uploads/appleCaramelCake.jpg
+image: /uploads/appleCaramelCake.png
 section: organic.md
 badges:
   - organic.md

@@ -1,6 +1,6 @@
 ---
 name: Mia’s Blush Cake
-image: /uploads/straweberryCake.jpg
+image: /uploads/straweberryCake.png
 section: organic.md
 badges:
   - organic.md

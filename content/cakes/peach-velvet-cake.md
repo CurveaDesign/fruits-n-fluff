@@ -1,6 +1,6 @@
 ---
 name: Peach Velvet Cake
-image: /uploads/peachCake.jpg
+image: /uploads/peachCake.png
 section: seasonal.md
 badges:
   - organic.md

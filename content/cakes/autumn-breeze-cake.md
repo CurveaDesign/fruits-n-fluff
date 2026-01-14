@@ -1,6 +1,6 @@
 ---
 name: Autumn Breeze Cake
-image: /uploads/0D61FFE9-2849-4032-8239-11C84B5746B2.png
+image: /uploads/appleCake.png
 section: organic.md
 badges:
   - organic.md
