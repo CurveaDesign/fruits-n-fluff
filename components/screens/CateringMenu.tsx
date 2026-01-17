@@ -11,7 +11,6 @@ import type {
   CateringItem,
   CateringSection,
   PlatDuJourWeek,
-  PlatDuJourDayName,
 } from "@/lib/content/types";
 
 type Props = {
@@ -20,15 +19,18 @@ type Props = {
   platWeeks: PlatDuJourWeek[];
 };
 
-const DAYS: PlatDuJourDayName[] = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-];
+const DAYS = [
+  { key: "monday", label: "Monday" },
+  { key: "tuesday", label: "Tuesday" },
+  { key: "wednesday", label: "Wednesday" },
+  { key: "thursday", label: "Thursday" },
+  { key: "friday", label: "Friday" },
+  { key: "saturday", label: "Saturday" },
+  { key: "sunday", label: "Sunday" },
+] as const;
+
+type DayKey = (typeof DAYS)[number]["key"];
+
 const ACCENT = "#bca87c";
 
 function refToSlug(ref?: string) {
@@ -92,7 +94,7 @@ export default function CateringMenu({ cateringSections, cateringItems, platWeek
 
   const hasPlatAny = useMemo(() => {
     if (!activeWeek) return false;
-    return (activeWeek.days || []).some((d) => d && d.isSet);
+    return Object.values(activeWeek.days || {}).some((d) => d && d.isSet);
   }, [activeWeek]);
 
   // ✅ Coming soon only when truly empty
@@ -104,14 +106,6 @@ export default function CateringMenu({ cateringSections, cateringItems, platWeek
     setTodayLocal(startOfDayLocal(new Date()));
   }, []);
 
-  // Normalize week days into a lookup
-  const weekDayMap = useMemo(() => {
-    const map = new Map<string, any>();
-    for (const d of (activeWeek?.days || []) as any[]) {
-      if (d?.day) map.set(String(d.day), d);
-    }
-    return map;
-  }, [activeWeek]);
 
   if (shouldShowComingSoon) {
     return (
@@ -183,44 +177,44 @@ export default function CateringMenu({ cateringSections, cateringItems, platWeek
 
 
               <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                {DAYS.map((day, idx) => {
-                  const raw = weekDayMap.get(day);
+{DAYS.map(({ key, label }, idx) => {
+  const raw = (activeWeek?.days as any)?.[key as DayKey];
 
-                  const item =
-                    raw && raw.isSet
-                      ? {
-                        name: String(raw.name || "").trim(),
-                        description: raw.description ? String(raw.description) : undefined,
-                        price:
-                          raw.priceLabel != null && String(raw.priceLabel).trim() !== ""
-                            ? String(raw.priceLabel).trim()
-                            : undefined,
-                        image: raw.image ? String(raw.image) : undefined,
-                      }
-                      : null;
+  const item =
+    raw && raw.isSet
+      ? {
+          name: String(raw.name || "").trim(),
+          description: raw.description ? String(raw.description) : undefined,
+          price:
+            raw.priceLabel != null && String(raw.priceLabel).trim() !== ""
+              ? String(raw.priceLabel).trim()
+              : undefined,
+          image: raw.image ? String(raw.image) : undefined,
+        }
+      : null;
 
-                  const safeItem = item?.name ? item : null;
+  const safeItem = item?.name ? item : null;
 
-                  let isPast = false;
-                  let isToday = false;
+  let isPast = false;
+  let isToday = false;
 
-                  if (todayLocal && weekStartDate) {
-                    const thisDate = startOfDayLocal(addDays(weekStartDate, idx));
-                    isPast = thisDate.getTime() < todayLocal.getTime();
-                    isToday = thisDate.getTime() === todayLocal.getTime();
-                  }
+  if (todayLocal && weekStartDate) {
+    const thisDate = startOfDayLocal(addDays(weekStartDate, idx));
+    isPast = thisDate.getTime() < todayLocal.getTime();
+    isToday = thisDate.getTime() === todayLocal.getTime();
+  }
 
-                  return (
-                    <PlatDuJourCard
-                      key={day}
-                      day={day}
-                      item={safeItem}
-                      isPast={isPast}
-                      isToday={isToday}
-                      accent={ACCENT}
-                    />
-                  );
-                })}
+  return (
+    <PlatDuJourCard
+      key={key}
+      day={label}
+      item={safeItem}
+      isPast={isPast}
+      isToday={isToday}
+      accent={ACCENT}
+    />
+  );
+})}
               </div>
             </section>
           )}

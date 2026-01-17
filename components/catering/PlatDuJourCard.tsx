@@ -18,8 +18,8 @@ type Props = {
 export default function PlatDuJourCard({ day, item, isPast, isToday, accent = "#bca87c" }: Props) {
   const waHref = item
     ? `https://wa.me/96171975948?text=${encodeURIComponent(
-        `Hello! I’d like to order the ${item.name} (${day} Plat du Jour).`
-      )}`
+      `Hello! I’d like to order the ${item.name} (${day} Plat du Jour).`
+    )}`
     : null;
 
   return (
@@ -52,11 +52,11 @@ export default function PlatDuJourCard({ day, item, isPast, isToday, accent = "#
           <>
             <h3 className="text-lg font-semibold text-[#2c2c2c] mt-1">{item.name}</h3>
             <p className="text-sm text-[#555] mt-1 line-clamp-2">{item.description}</p>
-{item.price != null && String(item.price).trim() !== "" && String(item.price) !== "0" && (
-  <p className="mt-2 text-sm font-medium" style={{ color: accent }}>
-    {typeof item.price === "number" ? `$${item.price}` : String(item.price)}
-  </p>
-)}
+            {item.price != null && String(item.price).trim() !== "" && String(item.price) !== "0" && (
+              <p className="mt-2 text-sm font-medium" style={{ color: accent }}>
+                {typeof item.price === "number" ? `$${item.price}` : String(item.price)}
+              </p>
+            )}
 
 
             <div className="mt-3">

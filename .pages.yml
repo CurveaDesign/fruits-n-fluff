@@ -82,10 +82,12 @@ content:
         label: Title
         type: string
         required: true
+
       - name: order
         label: Order
         type: number
         required: true
+
       - name: description
         label: Description
         type: text
@@ -103,6 +105,7 @@ content:
         label: Title
         type: string
         required: true
+
       - name: short
         label: Short label (optional)
         type: string
@@ -266,49 +269,152 @@ content:
 
       - name: days
         label: Week Menu (7 days)
-        type: list
+        type: object
         required: true
-        items:
-          type: object
-          fields:
-            - name: day
-              label: Day
-              type: select
-              required: true
-              options:
-                values:
-                  - label: Monday
-                    value: Monday
-                  - label: Tuesday
-                    value: Tuesday
-                  - label: Wednesday
-                    value: Wednesday
-                  - label: Thursday
-                    value: Thursday
-                  - label: Friday
-                    value: Friday
-                  - label: Saturday
-                    value: Saturday
-                  - label: Sunday
-                    value: Sunday
+        fields:
+          - name: monday
+            label: Monday
+            type: object
+            fields:
+              - name: isSet
+                label: Menu set
+                type: boolean
+                default: true
+              - name: name
+                label: Dish name
+                type: string
+              - name: description
+                label: Short description
+                type: string
+              - name: image
+                label: Image
+                type: image
+              - name: priceLabel
+                label: Price label (optional)
+                type: string
 
-            - name: isSet
-              label: Menu set
-              type: boolean
-              default: true
+          - name: tuesday
+            label: Tuesday
+            type: object
+            fields:
+              - name: isSet
+                label: Menu set
+                type: boolean
+                default: true
+              - name: name
+                label: Dish name
+                type: string
+              - name: description
+                label: Short description
+                type: string
+              - name: image
+                label: Image
+                type: image
+              - name: priceLabel
+                label: Price label (optional)
+                type: string
 
-            - name: name
-              label: Dish name
-              type: string
+          - name: wednesday
+            label: Wednesday
+            type: object
+            fields:
+              - name: isSet
+                label: Menu set
+                type: boolean
+                default: true
+              - name: name
+                label: Dish name
+                type: string
+              - name: description
+                label: Short description
+                type: string
+              - name: image
+                label: Image
+                type: image
+              - name: priceLabel
+                label: Price label (optional)
+                type: string
 
-            - name: description
-              label: Short description
-              type: string
+          - name: thursday
+            label: Thursday
+            type: object
+            fields:
+              - name: isSet
+                label: Menu set
+                type: boolean
+                default: true
+              - name: name
+                label: Dish name
+                type: string
+              - name: description
+                label: Short description
+                type: string
+              - name: image
+                label: Image
+                type: image
+              - name: priceLabel
+                label: Price label (optional)
+                type: string
 
-            - name: image
-              label: Image
-              type: image
+          - name: friday
+            label: Friday
+            type: object
+            fields:
+              - name: isSet
+                label: Menu set
+                type: boolean
+                default: true
+              - name: name
+                label: Dish name
+                type: string
+              - name: description
+                label: Short description
+                type: string
+              - name: image
+                label: Image
+                type: image
+              - name: priceLabel
+                label: Price label (optional)
+                type: string
 
-            - name: priceLabel
-              label: Price label (optional)
-              type: string
+          - name: saturday
+            label: Saturday
+            type: object
+            fields:
+              - name: isSet
+                label: Menu set
+                type: boolean
+                default: true
+              - name: name
+                label: Dish name
+                type: string
+              - name: description
+                label: Short description
+                type: string
+              - name: image
+                label: Image
+                type: image
+              - name: priceLabel
+                label: Price label (optional)
+                type: string
+
+          - name: sunday
+            label: Sunday
+            type: object
+            fields:
+              - name: isSet
+                label: Menu set
+                type: boolean
+                default: true
+              - name: name
+                label: Dish name
+                type: string
+              - name: description
+                label: Short description
+                type: string
+              - name: image
+                label: Image
+                type: image
+              - name: priceLabel
+                label: Price label (optional)
+                type: string
