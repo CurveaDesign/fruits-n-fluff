@@ -1,5 +1,5 @@
 ---
 title: Signature Trays
-order: 2
+order: 1
 description: Made for sharing — family & gatherings.
 ---

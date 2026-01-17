@@ -1,5 +1,5 @@
 ---
 title: Mouajanat
-order: 1
+order: 2
 description: Signature Lebanese pastries, baked fresh.
 ---

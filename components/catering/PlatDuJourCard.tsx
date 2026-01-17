@@ -21,6 +21,8 @@ export default function PlatDuJourCard({ day, item, isPast, isToday, accent = "#
       `Hello! I’d like to order the ${item.name} (${day} Plat du Jour).`
     )}`
     : null;
+const hasItem = !!item && item.name.trim().length > 0;
+const isDisabled = !hasItem;
 
   return (
     <article
@@ -31,15 +33,25 @@ export default function PlatDuJourCard({ day, item, isPast, isToday, accent = "#
       ].join(" ")}
       style={{ borderColor: isToday ? accent : "rgba(188,168,124,0.15)" }}
     >
-      <div className="aspect-[4/3] overflow-hidden">
-        <img
-          src={item?.image || "/catering/placeholder.jpg"}
-          alt={item?.name || "Dish"}
-          className="h-full w-full object-cover"
-          loading="lazy"
-        />
+<div className="aspect-[4/3] overflow-hidden">
+  {hasItem ? (
+    <img
+      src={item.image || "/catering/placeholder.jpg"}
+      alt={item.name}
+      className="h-full w-full object-cover"
+      loading="lazy"
+    />
+  ) : (
+    <div className="h-full w-full bg-[#fbfaf7] flex items-center justify-center">
+      <div className="text-center px-6">
+        <p className="text-xs uppercase tracking-wide" style={{ color: accent }}>
+          Back Soon
+        </p>
+        <p className="mt-2 text-sm text-[#777]">No menu set for this day.</p>
       </div>
-
+    </div>
+  )}
+</div>
       <div className="p-4">
         <p
           className={["text-sm font-medium uppercase tracking-wide", isToday ? "" : "text-[#888]"].join(" ")}
@@ -48,10 +60,13 @@ export default function PlatDuJourCard({ day, item, isPast, isToday, accent = "#
           {day}
         </p>
 
-        {item ? (
+        {hasItem ? (
           <>
             <h3 className="text-lg font-semibold text-[#2c2c2c] mt-1">{item.name}</h3>
-            <p className="text-sm text-[#555] mt-1 line-clamp-2">{item.description}</p>
+            {item.description ? (
+  <p className="text-sm text-[#555] mt-1 line-clamp-2">{item.description}</p>
+) : null}
+
             {item.price != null && String(item.price).trim() !== "" && String(item.price) !== "0" && (
               <p className="mt-2 text-sm font-medium" style={{ color: accent }}>
                 {typeof item.price === "number" ? `$${item.price}` : String(item.price)}

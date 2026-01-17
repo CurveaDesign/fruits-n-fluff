@@ -80,7 +80,7 @@ export function loadCateringItems(): CateringItem[] {
     return {
       slug,
       ...data,
-      description: body ? body : undefined,
+      ...(body ? { description: body } : {}),
     };
   });
 }

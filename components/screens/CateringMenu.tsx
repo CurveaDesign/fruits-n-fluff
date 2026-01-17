@@ -7,11 +7,7 @@ import Footer from "@/components/layout/Footer";
 import PlatDuJourCard from "@/components/catering/PlatDuJourCard";
 import SignatureCard from "@/components/catering/SignatureCard";
 
-import type {
-  CateringItem,
-  CateringSection,
-  PlatDuJourWeek,
-} from "@/lib/content/types";
+import type { CateringItem, CateringSection, PlatDuJourWeek } from "@/lib/content/types";
 
 type Props = {
   cateringSections: CateringSection[];
@@ -32,6 +28,10 @@ const DAYS = [
 type DayKey = (typeof DAYS)[number]["key"];
 
 const ACCENT = "#bca87c";
+
+// shared heading styles (same approach for Plat du Jour + sections)
+const H2_CLASS = "text-2xl md:text-3xl font-semibold tracking-tight text-center";
+const H2_SUB_CLASS = "mt-2 text-sm text-black/55 leading-relaxed text-center";
 
 function refToSlug(ref?: string) {
   if (!ref) return "";
@@ -57,6 +57,16 @@ function parseYYYYMMDDLocal(s?: string) {
   const d = Number(parts[2]);
   if (!Number.isFinite(y) || !Number.isFinite(m) || !Number.isFinite(d)) return null;
   return new Date(y, m - 1, d);
+}
+
+function fmtDate(d: Date) {
+  return d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+}
+
+function weekRangeLabel(weekStart: Date) {
+  const start = startOfDayLocal(weekStart);
+  const end = startOfDayLocal(addDays(start, 6));
+  return `${fmtDate(start)} – ${fmtDate(end)}`;
 }
 
 export default function CateringMenu({ cateringSections, cateringItems, platWeeks }: Props) {
@@ -97,7 +107,7 @@ export default function CateringMenu({ cateringSections, cateringItems, platWeek
     return Object.values(activeWeek.days || {}).some((d) => d && d.isSet);
   }, [activeWeek]);
 
-  // ✅ Coming soon only when truly empty
+  // Coming soon only when truly empty
   const shouldShowComingSoon = !hasPlatAny && activeSignatures.length === 0;
 
   // Client-safe "past/today" (no hydration mismatch)
@@ -105,7 +115,6 @@ export default function CateringMenu({ cateringSections, cateringItems, platWeek
   useEffect(() => {
     setTodayLocal(startOfDayLocal(new Date()));
   }, []);
-
 
   if (shouldShowComingSoon) {
     return (
@@ -157,10 +166,8 @@ export default function CateringMenu({ cateringSections, cateringItems, platWeek
     <>
       <NavBar />
 
-      {/* OLD DESIGN SHELL */}
       <main className="min-h-screen bg-gradient-to-b from-[#f8f7f4] to-white pt-[var(--nav-h,6.5rem)]">
         <div className="max-w-7xl mx-auto px-6 py-16">
-          {/* Header: same rhythm as old */}
           <header className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-semibold text-[#2f2f2f]">Catering Menu</h1>
             <p className="mt-3 text-[#555]/80">
@@ -171,77 +178,93 @@ export default function CateringMenu({ cateringSections, cateringItems, platWeek
           {/* Plat du Jour — This Week */}
           {activeWeek && (
             <section className="mb-20">
+              <div className="mb-6">
+                <h2 className={H2_CLASS} style={{ color: ACCENT }}>
+                  Plat du Jour
+                </h2>
+                {weekStartDate ? (
+                  <p className={H2_SUB_CLASS}>
+                    Week of <span className="font-medium">{weekRangeLabel(weekStartDate)}</span>
+                  </p>
+                ) : null}
+              </div>
+
               <p className="text-sm text-black/55 mt-1 pb-4">
                 Prepared fresh — please order at least <span className="font-medium">1 day in advance</span>.
               </p>
 
-
               <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-{DAYS.map(({ key, label }, idx) => {
-  const raw = (activeWeek?.days as any)?.[key as DayKey];
+                {DAYS.map(({ key, label }, idx) => {
+                  const raw = (activeWeek?.days as any)?.[key as DayKey];
 
-  const item =
-    raw && raw.isSet
-      ? {
-          name: String(raw.name || "").trim(),
-          description: raw.description ? String(raw.description) : undefined,
-          price:
-            raw.priceLabel != null && String(raw.priceLabel).trim() !== ""
-              ? String(raw.priceLabel).trim()
-              : undefined,
-          image: raw.image ? String(raw.image) : undefined,
-        }
-      : null;
+                  const item =
+                    raw?.isSet === true
+                      ? {
+                          name: String(raw.name || "").trim(),
+                          description: raw.description ? String(raw.description) : undefined,
+                          price:
+                            raw.priceLabel != null && String(raw.priceLabel).trim() !== ""
+                              ? String(raw.priceLabel).trim()
+                              : undefined,
+                          image: raw.image ? String(raw.image) : undefined,
+                        }
+                      : null;
 
-  const safeItem = item?.name ? item : null;
+                  const safeItem = item?.name ? item : null;
 
-  let isPast = false;
-  let isToday = false;
+                  let isPast = false;
+                  let isToday = false;
 
-  if (todayLocal && weekStartDate) {
-    const thisDate = startOfDayLocal(addDays(weekStartDate, idx));
-    isPast = thisDate.getTime() < todayLocal.getTime();
-    isToday = thisDate.getTime() === todayLocal.getTime();
-  }
+                  if (todayLocal && weekStartDate) {
+                    const thisDate = startOfDayLocal(addDays(weekStartDate, idx));
+                    isPast = thisDate.getTime() < todayLocal.getTime();
+                    isToday = thisDate.getTime() === todayLocal.getTime();
+                  }
 
-  return (
-    <PlatDuJourCard
-      key={key}
-      day={label}
-      item={safeItem}
-      isPast={isPast}
-      isToday={isToday}
-      accent={ACCENT}
-    />
-  );
-})}
+                  return (
+                    <PlatDuJourCard
+                      key={key}
+                      day={label}
+                      item={safeItem}
+                      isPast={isPast}
+                      isToday={isToday}
+                      accent={ACCENT}
+                    />
+                  );
+                })}
               </div>
             </section>
           )}
 
-          {/* Signature Dishes */}
+          {/* Catering Sections (each section owns its own H2) */}
           {orderedSections.length > 0 && (
             <section>
-              <h2 className="text-2xl font-semibold mb-6 text-center" style={{ color: ACCENT }}>
-                Signature Dishes
-              </h2>
+              <div className="space-y-16">
+                {orderedSections.map((sec) => (
+                  <div key={sec.slug}>
+                    <div className="mb-6">
+                      <h2 className={H2_CLASS} style={{ color: ACCENT }}>
+                        {sec.title}
+                      </h2>
+                      {sec.description ? <p className={H2_SUB_CLASS}>{sec.description}</p> : null}
+                    </div>
 
-              {/* Old design uses a slightly airier grid */}
-              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                {orderedSections.flatMap((sec) =>
-                  sec.items.map((it) => (
-                    <SignatureCard
-                      key={it.slug}
-                      item={{
-                        name: it.name,
-                        description: it.description,
-                        image: it.image || "/catering/placeholder.jpg",
-                        price: it.priceLabel ? String(it.priceLabel).trim() : undefined,
-                      }}
-                      accent={ACCENT}
-                    />
-                  ))
-                )}
+                    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                      {sec.items.map((it) => (
+                        <SignatureCard
+                          key={it.slug}
+                          item={{
+                            name: it.name,
+                            description: it.description,
+                            image: it.image || "/catering/placeholder.jpg",
+                            price: it.priceLabel ? String(it.priceLabel).trim() : undefined,
+                          }}
+                          accent={ACCENT}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
             </section>
           )}
