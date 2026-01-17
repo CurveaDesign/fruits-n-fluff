@@ -124,8 +124,7 @@ export const scenePrep: SceneFn[] = [
           .split("")
           .map(
             (ch, i) =>
-              `<span class="char${
-                isSavory && i === 0 ? " savory-start" : ""
+              `<span class="char${isSavory && i === 0 ? " savory-start" : ""
               }">${ch}</span>`
           )
           .join("");
@@ -370,7 +369,8 @@ export const sceneEnter: SceneFn[] = [
           each: 0.035,
           onStart() {
             if (morphed) return;
-            const t = this.targets()[0] as HTMLElement;
+            const t = (Array.isArray((this as any).targets?.()) ? (this as any).targets()[0] : null) as HTMLElement | null;
+            if (!t) return;
             if (t.classList.contains("savory-start")) {
               morphed = true;
 

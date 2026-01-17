@@ -21,8 +21,7 @@ export default function SignatureCard({ item, accent = "#bca87c" }: Props) {
   return (
     <article className="rounded-2xl overflow-hidden border border-[rgba(188,168,124,0.15)] bg-white/90 shadow-sm hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] transition-all">
       <div className="aspect-[4/3] overflow-hidden">
-        <img
-          src={image}
+        <img src={image || "/catering/placeholder.jpg"}
           alt={name}
           className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
           loading="lazy"
@@ -32,7 +31,12 @@ export default function SignatureCard({ item, accent = "#bca87c" }: Props) {
       <div className="p-5">
         <div className="flex items-start justify-between">
           <h3 className="text-lg font-semibold text-[#2c2c2c]">{name}</h3>
-          {price != null && <span className="text-[#bca87c] font-medium">${price}</span>}
+          {price != null && String(price).trim() !== "" && String(price) !== "0" && (
+  <span className="text-[#bca87c] font-medium">
+    {typeof price === "number" ? `$${price}` : String(price)}
+  </span>
+)}
+
         </div>
         {description && <p className="mt-2 text-sm text-[#555] leading-relaxed">{description}</p>}
 

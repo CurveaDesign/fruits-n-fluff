@@ -39,3 +39,47 @@ export type Cake = {
   pricing: Pricing;
   seasonal?: SeasonalWindow;
 };
+
+export type CateringSection = {
+  slug: string; // filename
+  title: string;
+  order: number;
+  description?: string;
+};
+
+export type CateringItem = {
+  slug: string; // filename
+  isActive: boolean;
+  name: string;
+  sectionRef: string; // reference -> cateringSections slug
+  image?: string; // /uploads/... (PageCMS) OR missing
+  priceLabel?: string; // label string
+  order: number;
+  description?: string; // can be body content
+};
+
+export type PlatDuJourDayName =
+  | "Monday"
+  | "Tuesday"
+  | "Wednesday"
+  | "Thursday"
+  | "Friday"
+  | "Saturday"
+  | "Sunday";
+
+export type PlatDuJourDay = {
+  day: PlatDuJourDayName;
+  isSet: boolean;
+  name?: string;
+  description?: string;
+  image?: string;
+  priceLabel?: string;
+};
+
+export type PlatDuJourWeek = {
+  slug: string; // filename
+  isActive: boolean;
+  weekStart: string; // YYYY-MM-DD
+  note?: string;
+  days: PlatDuJourDay[];
+};

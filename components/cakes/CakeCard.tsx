@@ -99,16 +99,15 @@ export default function CakeCard({ cake, badgeMap }: Props) {
   const ctaLabel = outOfSeason ? "Ask for availability" : "Order on WhatsApp";
 
   return (
-    <article
-      className={[
-        "group relative overflow-hidden rounded-2xl border border-[var(--blueberry-200)]/40",
-        "bg-gradient-to-b from-white to-[var(--blueberry-50)]",
-        "shadow-[0_3px_10px_rgba(59,92,210,0.08)] transition-shadow duration-300",
-        outOfSeason
-          ? "opacity-75 grayscale"
-          : "hover:shadow-[0_8px_20px_rgba(59,92,210,0.12)]",
-      ].join(" ")}
-    >
+<article
+  className={[
+    "group relative overflow-hidden rounded-2xl border border-[var(--blueberry-200)]/40",
+    "bg-gradient-to-b from-white to-[var(--blueberry-50)]",
+    "shadow-[0_3px_10px_rgba(59,92,210,0.08)] transition-shadow duration-300",
+    "hover:shadow-[0_8px_20px_rgba(59,92,210,0.12)]",
+  ].join(" ")}
+>
+
       <div className="aspect-[4/3] overflow-hidden rounded-t-2xl relative">
         <img
           src={image}

@@ -1,7 +1,14 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import type { Cake, CakeBadge, CakeSection } from "./types";
+import type {
+  Cake,
+  CakeBadge,
+  CakeSection,
+  CateringSection,
+  CateringItem,
+  PlatDuJourWeek,
+} from "./types";
 
 const root = process.cwd();
 
@@ -46,5 +53,53 @@ export function loadCakes(): Cake[] {
     const slug = slugFromFilename(f);
     const data = parseMd<Omit<Cake, "slug">>(path.join(dir, f));
     return { slug, ...data };
+  });
+}
+
+export function loadCateringSections(): CateringSection[] {
+  const dir = path.join(root, "content", "cateringSections");
+  return readDirMd(dir)
+    .map((f) => {
+      const slug = slugFromFilename(f);
+      const data = parseMd<Omit<CateringSection, "slug">>(path.join(dir, f));
+      return { slug, ...data };
+    })
+    .sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
+}
+
+export function loadCateringItems(): CateringItem[] {
+  const dir = path.join(root, "content", "cateringItems");
+  return readDirMd(dir).map((f) => {
+    const slug = slugFromFilename(f);
+    const raw = fs.readFileSync(path.join(dir, f), "utf8");
+    const parsed = matter(raw);
+
+    const data = parsed.data as Omit<CateringItem, "slug" | "description">;
+    const body = String(parsed.content || "").trim();
+
+    return {
+      slug,
+      ...data,
+      description: body ? body : undefined,
+    };
+  });
+}
+
+export function loadPlatDuJourWeeks(): PlatDuJourWeek[] {
+  const dir = path.join(root, "content", "platDuJourWeeks");
+
+  return readDirMd(dir).map((f) => {
+    const slug = slugFromFilename(f);
+    const data = parseMd<any>(path.join(dir, f));
+
+    return {
+      slug,
+      ...data,
+      // ✅ force Date -> string (and keep strings as-is)
+      weekStart:
+        data?.weekStart instanceof Date
+          ? data.weekStart.toISOString().slice(0, 10)
+          : String(data?.weekStart || ""),
+    } as PlatDuJourWeek;
   });
 }

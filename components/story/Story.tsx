@@ -20,7 +20,7 @@ export default function Story() {
   const idx = useRef(0);
   const anim = useRef(false);
   const lenisRef = useRef<Lenis | null>(null);
-  const observerRef = useRef<gsap.plugins.ObserverInstance | null>(null);
+  const observerRef = useRef<Observer | null>(null);
 
   useEffect(() => {
     document.body.classList.add("lock-scroll");
@@ -94,7 +94,10 @@ export default function Story() {
           },
         });
 
-        tl.add(() => sceneEnter[next]?.(to), 0).to(from, { opacity: 0, duration: 0.25 }, 1.02);
+        tl.add(() => {
+          sceneEnter[next]?.(to);
+        }, 0).to(from, { opacity: 0, duration: 0.25 }, 1.02);
+
         return;
       }
 
@@ -114,7 +117,10 @@ export default function Story() {
         });
 
         const exitTl = sceneExit[cur]?.(from) || gsap.timeline({ duration: 0 });
-        tl.add(exitTl, 0).add(() => sceneEnter[next]?.(to));
+        tl.add(exitTl, 0).add(() => {
+          sceneEnter[next]?.(to);
+        });
+
         return;
       }
 
@@ -134,7 +140,10 @@ export default function Story() {
 
       tl.to(from, { opacity: 0, scale: 1.01, duration: 0.8 }, 0)
         .to(to, { opacity: 1, scale: 1.0, duration: 0.8 }, 0)
-        .add(() => sceneEnter[next]?.(to), 0.25);
+        .add(() => {
+          sceneEnter[next]?.(to);
+        }, 0.25);
+
     };
 
     const onSkip = () => goTo(scenes.length - 1);
