@@ -167,143 +167,155 @@ content:
         required: false
         description: Only fill this if the cake should gray-out when out of season.
 
-  # =========================
-  # Catering — Sections
-  # =========================
-  - name: cateringSections
-    label: Catering — Sections
-    type: collection
-    path: content/cateringSections
-    filename: "{slug}.md"
-    view:
-      fields: [ title, order ]
-    fields:
-      - name: title
-        label: Title
-        type: string
-        required: true
+# =========================
+# Catering — Sections
+# =========================
+- name: cateringSections
+  label: Catering — Sections
+  type: collection
+  path: content/cateringSections
+  filename: "{primary}.md"
+  view:
+    primary: title
+  fields:
+    - name: title
+      label: Title
+      type: string
+      required: true
 
-      - name: order
-        label: Order
-        type: number
-        default: 999
+    - name: order
+      label: Order
+      type: number
+      default: 999
 
-      - name: description
-        label: Short description (optional)
-        type: string
+    - name: description
+      label: Short description (optional)
+      type: string
 
-  # =========================
-  # Catering — Signature Items
-  # =========================
-  - name: cateringItems
-    label: Catering — Signature Items
-    type: collection
-    path: content/cateringItems
-    filename: "{slug}.md"
-    view:
-      fields: [ name, sectionRef, order, isActive ]
-    fields:
-      - name: isActive
-        label: Active
-        type: boolean
-        default: true
+# =========================
+# Catering — Signature Items
+# =========================
+- name: cateringItems
+  label: Catering — Signature Items
+  type: collection
+  path: content/cateringItems
+  filename: "{primary}.md"
+  view:
+    primary: name
+  fields:
+    - name: isActive
+      label: Active
+      type: boolean
+      default: true
 
-      - name: name
-        label: Name
-        type: string
-        required: true
+    - name: name
+      label: Name
+      type: string
+      required: true
 
-      - name: sectionRef
-        label: Section
-        type: reference
-        required: true
+    - name: sectionRef
+      label: Section
+      type: reference
+      required: true
+      options:
         collection: cateringSections
+        search: title
+        value: "{name}"
+        label: "{title}"
 
-      - name: image
-        label: Image
-        type: image
-        description: "Uploads to /public/uploads and saves as /uploads/..."
+    - name: image
+      label: Image
+      type: image
+      description: "Uploads to /public/uploads and saves as /uploads/..."
 
-      - name: priceLabel
-        label: Price label (optional)
-        type: string
-        description: 'Examples: "LBP 450,000", "$12", "From $10", or leave empty'
+    - name: priceLabel
+      label: Price label (optional)
+      type: string
+      description: 'Examples: "LBP 450,000", "$12", "From $10", or leave empty'
 
-      - name: order
-        label: Order
-        type: number
-        default: 999
+    - name: order
+      label: Order
+      type: number
+      default: 999
 
-      - name: body
-        label: Description
-        type: rich-text
+    - name: body
+      label: Description
+      type: rich-text
 
-  # =========================
-  # Catering — Plat du Jour (Weekly)
-  # One document per week with a 7-day list
-  # =========================
-  - name: platDuJourWeeks
-    label: Catering — Plat du Jour (Weeks)
-    type: collection
-    path: content/platDuJourWeeks
-    filename: "{slug}.md"
-    view:
-      fields: [ weekStart, isActive ]
-    fields:
-      - name: isActive
-        label: Active
-        type: boolean
-        default: true
+# =========================
+# Catering — Plat du Jour (Weekly)
+# One document per week with a 7-day list
+# =========================
+- name: platDuJourWeeks
+  label: Catering — Plat du Jour (Weeks)
+  type: collection
+  path: content/platDuJourWeeks
+  filename: "{primary}.md"
+  view:
+    primary: weekStart
+  fields:
+    - name: isActive
+      label: Active
+      type: boolean
+      default: true
 
-      - name: weekStart
-        label: Week Start (Monday)
-        type: date
-        required: true
-        description: "Pick the Monday of the week. Past days will auto-gray on the page."
+    - name: weekStart
+      label: Week Start (Monday)
+      type: date
+      required: true
+      description: "Pick the Monday of the week. Past days will auto-gray on the page."
 
-      - name: note
-        label: Note (optional)
-        type: string
-        description: 'Example: "Orders close at 6PM."'
+    - name: note
+      label: Note (optional)
+      type: string
+      description: 'Example: "Orders close at 6PM."'
 
-      - name: days
-        label: Week Menu (7 days)
-        type: list
-        required: true
-        description: "Add 7 entries: Monday → Sunday"
-        items:
-          type: object
-          fields:
-            - name: day
-              label: Day
-              type: select
-              required: true
-              options:
-                - Monday
-                - Tuesday
-                - Wednesday
-                - Thursday
-                - Friday
-                - Saturday
-                - Sunday
+    - name: days
+      label: Week Menu (7 days)
+      type: list
+      required: true
+      description: "Add 7 entries: Monday → Sunday"
+      items:
+        type: object
+        fields:
+          - name: day
+            label: Day
+            type: select
+            required: true
+            options:
+              values:
+                - label: Monday
+                  value: Monday
+                - label: Tuesday
+                  value: Tuesday
+                - label: Wednesday
+                  value: Wednesday
+                - label: Thursday
+                  value: Thursday
+                - label: Friday
+                  value: Friday
+                - label: Saturday
+                  value: Saturday
+                - label: Sunday
+                  value: Sunday
 
-            - name: isSet
-              label: Menu set for this day
-              type: boolean
-              default: true
+          - name: isSet
+            label: Menu set for this day
+            type: boolean
+            default: true
 
-            - name: name
-              label: Dish name
-              type: string
+          - name: name
+            label: Dish name
+            type: string
 
-            - name: description
-              label: Short description
-              type: string
+          - name: description
+            label: Short description
+            type: string
 
-            - name: image
-              label: Image
-              type: image
+          - name: image
+            label: Image
+            type: image
 
-            - name: priceLabel
-              label: Price label (optional)
-              type: string
+          - name: priceLabel
+            label: Price label (optional)
+            type: string
